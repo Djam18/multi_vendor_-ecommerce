@@ -1,8 +1,7 @@
 @extends('frontend.dashboard.layouts.master')
 
 @section('title')
-{{$settings->site_name}} || Product
-@endsection
+{{$settings->site_name ?? "Product"}}@endsection
 
 @section('content')
   <!--=============================

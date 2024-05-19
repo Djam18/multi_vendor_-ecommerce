@@ -5,3 +5,18 @@
 /public
 
 .env
+.env
+.env.testing
+.env.dusk
+.env.dusk.local
+coverage/*
+/.npm
+/.composer
+/db
+logs
+logs/*
+*.js.map
+*.css.map
+/.cache
+/.local
+/.bash_history

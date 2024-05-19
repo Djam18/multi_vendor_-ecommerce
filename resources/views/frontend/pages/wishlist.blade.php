@@ -1,7 +1,7 @@
 @extends('frontend.layouts.master')
 
 @section('title')
-{{$settings->site_name}} || Wishlist
+{{$settings->site_name ?? "Wishlist"}}
 @endsection
 
 @section('content')

@@ -7,7 +7,7 @@
 @extends('frontend.dashboard.layouts.master')
 
 @section('title')
-    {{ $settings->site_name }} || Product
+    {{ $settings->site_name ?? "Product" }}
 @endsection
 
 @section('content')

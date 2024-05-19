@@ -10,7 +10,9 @@
             <div class="col-xl-2 col-7 col-md-8 col-lg-2">
                 <div class="wsus_logo_area">
                     <a class="wsus__header_logo" href="{{url('/')}}">
-                        <img src="{{asset($logoSetting->logo)}}" alt="logo" class="img-fluid w-100">
+                        @if ($logoSetting)
+                            <img src="{{asset($logoSetting->logo)}}" alt="logo" class="img-fluid w-100">
+                        @endif
                     </a>
                 </div>
             </div>
@@ -28,9 +30,12 @@
                         <div class="wsus__call">
                             <i class="fas fa-user-headset"></i>
                         </div>
+
                         <div class="wsus__call_text">
-                            <p>{{$settings->contact_email}}</p>
-                            <p>{{$settings->contact_phone}}</p>
+                            @if ($settings)
+                                <p>{{$settings->contact_email}}</p>
+                                <p>{{$settings->contact_phone}}</p>
+                            @endif
                         </div>
                     </div>
                     <ul class="wsus__icon_area">
@@ -74,7 +79,7 @@
             @endif
         </ul>
         <div class="mini_cart_actions {{Cart::content()->count() === 0 ? 'd-none': ''}}">
-            <h5>sub total <span id="mini_cart_subtotal">{{$settings->currency_icon}}{{getCartTotal()}}</span></h5>
+            <h5>sub total @if ($settings) <span id="mini_cart_subtotal">{{$settings->currency_icon}}{{getCartTotal()}}</span> @endif </h5>
             <div class="wsus__minicart_btn_area">
                 <a class="common_btn" href="{{route('cart-details')}}">view cart</a>
                 <a class="common_btn" href="{{route('user.checkout')}}">checkout</a>

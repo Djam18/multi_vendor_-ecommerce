@@ -1,7 +1,7 @@
 @extends('frontend.layouts.master')
 
 @section('title')
-{{$settings->site_name}} || Payment
+{{ $settings->site_name ?? "Payment" }}
 @endsection
 
 @section('content')
@@ -65,7 +65,7 @@
                     </div>
                     <div class="col-xl-5 col-lg-5">
                         <div class="tab-content" id="v-pills-tabContent" id="sticky_sidebar">
-  
+
 
                             <div class="tab-pane fade show active" id="v-pills-paypal" role="tabpanel"
                             aria-labelledby="v-pills-home-tab">

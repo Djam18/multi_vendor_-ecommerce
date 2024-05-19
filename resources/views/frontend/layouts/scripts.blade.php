@@ -54,6 +54,8 @@
                     var html = '';
                     for (let item in data) {
                         let product = data[item];
+                        html += ``;
+                        @if ($settings && $settings->currency_icon)
                         html += `
                         <li id="mini_cart_${product.rowId}">
                             <div class="wsus__cart_img">
@@ -68,6 +70,8 @@
                                 <small>Qty: ${product.qty}</small>
                             </div>
                         </li>`
+
+                        @endif
                     }
 
                     $('.mini_cart_wrapper').html(html);
@@ -116,7 +120,10 @@
                 method: 'GET',
                 url: "{{ route('cart.sidebar-product-total') }}",
                 success: function(data) {
-                    $('#mini_cart_subtotal').text("{{ $settings->currency_icon }}" + data);
+                    $('#mini_cart_subtotal').text("" + data);
+                    @if ($settings && $settings->currency_icon)
+                        $('#mini_cart_subtotal').text("{{ $settings->currency_icon }}" + data);
+                    @endif
                 },
                 error: function(data) {
 

@@ -1,7 +1,7 @@
 @extends('frontend.dashboard.layouts.master')
 
 @section('title')
-{{$settings->site_name}} || Became a Vendor Today
+{{$settings->site_name ?? "Became a Vendor Today"}}
 @endsection
 
 @section('content')

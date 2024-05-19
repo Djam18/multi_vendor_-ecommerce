@@ -1,33 +1,44 @@
 @php
-    $categoryProductSliderSectionOne = json_decode($categoryProductSliderSectionOne->value);
+    if ($categoryProductSliderSectionOne) {
+        $categoryProductSliderSectionOne = json_decode($categoryProductSliderSectionOne->value);
+        # code...
+    }
+    $category = null;
     $lastKey = [];
+    $categoryProductSliderSectionOne = [];
 
     foreach($categoryProductSliderSectionOne as $key => $category){
         if($category === null ){
             break;
         }
-        $lastKey = [$key => $category];
+        $lastKey = [$key => $category] ?? [];
     }
 
-    if(array_keys($lastKey)[0] === 'category'){
+    if(array_keys($lastKey) && array_keys($lastKey)[0] === 'category'){
         $category = \App\Models\Category::find($lastKey['category']);
         $products = \App\Models\Product::withAvg('reviews', 'rating')->withCount('reviews')
         ->with(['variants', 'category', 'productImageGalleries'])
         ->where('category_id', $category->id)->orderBy('id', 'DESC')->take(12)->get();
-    }elseif(array_keys($lastKey)[0] === 'sub_category'){
+    }elseif(array_keys($lastKey) && array_keys($lastKey)[0] === 'sub_category'){
         $category = \App\Models\SubCategory::find($lastKey['sub_category']);
         $products = \App\Models\Product::withAvg('reviews', 'rating')->withCount('reviews')
         ->with(['variants', 'category', 'productImageGalleries'])
         ->where('sub_category_id', $category->id)->orderBy('id', 'DESC')->take(12)->get();
     }else {
-        $category = \App\Models\ChildCategory::find($lastKey['child_category']);
-        $products = \App\Models\Product::withAvg('reviews', 'rating')->withCount('reviews')
-        ->with(['variants', 'category', 'productImageGalleries'])
-        ->where('child_category_id', $category->id)->orderBy('id', 'DESC')->take(12)->get();
+        if (!empty($lastKey['child_category'])) {
+            $category = \App\Models\ChildCategory::find($lastKey['child_category']) ?? null;
+        }
+        $products = [];
+        if (!empty($category)) {
+            $products = \App\Models\Product::withAvg('reviews', 'rating')->withCount('reviews')
+            ->with(['variants', 'category', 'productImageGalleries'])
+            ->where('child_category_id', $category->id)->orderBy('id', 'DESC')->take(12)->get() ?? [];
+        }
     }
 @endphp
 <section id="wsus__electronic">
     <div class="container">
+        @if (!empty($category))
         <div class="row">
             <div class="col-xl-12">
                 <div class="wsus__section_header">
@@ -36,6 +47,7 @@
                 </div>
             </div>
         </div>
+        @endif
         <div class="row flash_sell_slider">
             @foreach ($products as $product)
                 <x-product-card :product="$product" />

@@ -1,7 +1,7 @@
 @extends('frontend.layouts.master')
 
 @section('title')
-{{$settings->site_name}} || Checkout
+{{$settings->site_name ?? "Checkout"}}
 @endsection
 
 @section('content')

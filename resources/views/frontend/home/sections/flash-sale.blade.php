@@ -29,11 +29,14 @@
 @push('scripts')
 <script>
     $(document).ready(function(){
+    @if ($flashSaleDate)
         simplyCountdown('.simply-countdown-one', {
-            year: {{date('Y', strtotime($flashSaleDate->end_date))}},
-            month: {{date('m', strtotime($flashSaleDate->end_date))}},
-            day: {{date('d', strtotime($flashSaleDate->end_date))}},
-        });
+                year: {{date('Y', strtotime($flashSaleDate->end_date))}},
+                month: {{date('m', strtotime($flashSaleDate->end_date))}},
+                day: {{date('d', strtotime($flashSaleDate->end_date))}},
+            });
+
+    @endif
     })
 </script>
 @endpush

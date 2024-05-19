@@ -1,7 +1,7 @@
 @extends('frontend.layouts.master')
 
 @section('title')
-{{$settings->site_name}} || About
+{{$settings->site_name ??  "About"}}
 @endsection
 
 @section('content')
@@ -34,13 +34,13 @@
     ==============================-->
     <section id="wsus__blogs">
         <div class="container">
-           @if (request()->has('search'))
-           <h5>Search: {{request()->search}}</h5>
-           <hr>
-           @elseif (request()->has('category'))
-           <h5>Search: {{request()->category}}</h5>
-           <hr>
-           @endif
+            @if (request()->has('search'))
+            <h5>Search: {{request()->search}}</h5>
+            <hr>
+            @elseif (request()->has('category'))
+            <h5>Search: {{request()->category}}</h5>
+            <hr>
+            @endif
             <div class="row">
                 @foreach ($blogs as $blog)
                 <div class="col-xl-3">

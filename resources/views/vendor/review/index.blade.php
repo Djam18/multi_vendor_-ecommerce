@@ -1,7 +1,7 @@
 @extends('vendor.layouts.master')
 
 @section('title')
-{{$settings->site_name}} || Reviews
+{{$settings->site_name ?? "Reviews"}}
 @endsection
 
 @section('content')
